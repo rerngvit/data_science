@@ -1,5 +1,5 @@
 # The following code is extended from the original code developed by JayParks
-# Source: https://github.com/JayParks/tf-seq2seq/blob/master/train.ipynb
+# Source: https://github.com/JayParks/tf-seq2seq/blob/master/seq2seq_model.py
 
 import math
 import numpy as np
@@ -22,7 +22,7 @@ from tensorflow.contrib.seq2seq.python.ops import beam_search_decoder
 
 class CharacterSeq2SeqModel(object):
     """ The following code is extended from the original code developed by JayParks
-        Source: https://github.com/JayParks/tf-seq2seq/blob/master/train.ipynb
+        Source: https://github.com/JayParks/tf-seq2seq/blob/master/seq2seq_model.py
 
     I have made the following extensions: adding bidirectional RNNs, accuracy metrics,
     visualize different curves between training and validation set data,
