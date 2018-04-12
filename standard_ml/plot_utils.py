@@ -4,27 +4,32 @@ from sklearn import metrics
 import numpy as np
 from sklearn.metrics import precision_recall_curve
 from sklearn.metrics import average_precision_score
+from sklearn.metrics import make_scorer, f1_score
+from sklearn.model_selection import learning_curve
+from sklearn.model_selection import ShuffleSplit
 
-def visualize_precision_recall(Y_predict_prob, Y_actual, show_base_line=True,
+
+def visualize_precision_recall(y_predict_prob, y_actual, show_base_line=True,
                                fill_style="area_below", precision_offset=0.05,
-                               label_size=20):
+                               font_size=20):
     """ Visualize precision recall curve with base line (flipping a coin)
 
-    :param Y_predict_prob: numpy array of predicted probabilities
-    :param Y_actual: numpy array of ground-truth outcomes
+    :param y_predict_prob: numpy array of predicted probabilities
+    :param y_actual: numpy array of ground-truth outcomes
     :param show_base_line: a boolean whether to visualize the base line (flipping a coin)
     :param fill_style: either "area_below" or "uncertainty_offset"
     :param precision_offset: constant precision offset
         (only applicable for fill_style = "uncertainty_offset")
-    """
+    :param font_size: font size for visualization
 
-    precision, recall, thresholds = precision_recall_curve(Y_actual, Y_predict_prob)
-    average_precision = average_precision_score(Y_actual, Y_predict_prob)
+    """
+    precision, recall, thresholds = precision_recall_curve(y_actual, y_predict_prob)
+    average_precision = average_precision_score(y_actual, y_predict_prob)
     
-    plt.rc('xtick', labelsize=label_size)
-    plt.rc('ytick', labelsize=label_size)
-    plt.rc('legend', fontsize=label_size)
-    plt.rc('axes', labelsize=label_size)
+    plt.rc('xtick', labelsize=font_size)
+    plt.rc('ytick', labelsize=font_size)
+    plt.rc('legend', fontsize=font_size)
+    plt.rc('axes', labelsize=font_size)
     plt.step(recall, precision, color='b', alpha=0.2),
 
     if fill_style == "area_below":
@@ -35,7 +40,7 @@ def visualize_precision_recall(Y_predict_prob, Y_actual, show_base_line=True,
                          color="b")
 
     if show_base_line:
-        plt.axhline(y=average_precision_score(Y_actual, np.repeat(0.5, Y_actual.shape[0])), color='r', linestyle='--')
+        plt.axhline(y=average_precision_score(y_actual, np.repeat(0.5, y_actual.shape[0])), color='r', linestyle='--')
     plt.xlabel('Recall')
     plt.ylabel('Precision')
     plt.ylim([0.0, 1.05])
@@ -43,12 +48,12 @@ def visualize_precision_recall(Y_predict_prob, Y_actual, show_base_line=True,
     plt.title('2-class Precision-Recall curve: AP={0:0.2f}'.format(average_precision))
 
 
-def visualize_precision_recall_with_variations(list_of_Y_test, results_dict,
+def visualize_precision_recall_with_variations(list_of_y_test, results_dict,
                                                show_base_line=True,
                                                font_size=50):
     """  Visualize precision recall curve with variation scores (from random samplings)
 
-    :param list_of_Y_test: List of ground truth outcomes
+    :param list_of_y_test: List of ground truth outcomes
     :param results_dict: Dictionary of results having recall value as key
     :param show_base_line: a flag whether to visualize a base line or not
     :param font_size: font size for visualization
@@ -71,7 +76,7 @@ def visualize_precision_recall_with_variations(list_of_Y_test, results_dict,
 
     if show_base_line:
         flipping_coin_precisions = np.array([average_precision_score(
-            Y_actual, np.repeat(0.5, Y_actual.shape[0])) for Y_actual in list_of_Y_test])
+            Y_actual, np.repeat(0.5, Y_actual.shape[0])) for Y_actual in list_of_y_test])
 
         plt.axhline(y=flipping_coin_precisions.mean(), color='r', linestyle='--')
         plt.fill_between(recalls, flipping_coin_precisions.mean() - flipping_coin_precisions.std(),
@@ -83,8 +88,9 @@ def visualize_precision_recall_with_variations(list_of_Y_test, results_dict,
     plt.xlim([0.0, 1.0])
 
     avg_weighted_precision = (np.diff(recalls, n=1) * precision_means[:-1]).sum()
-    plt.title('2-class Precision-Recall curve: AP={0:0.2f}'.format(avg_weighted_precision),
-             fontsize=30)
+    plt.title('2-class Precision-Recall curve: AP={0:0.2f}'.format(
+        avg_weighted_precision), fontsize=30)
+
 
 def visualize_ROC_curve(Y_predict_prob, Y_actual, font_size=40):
     """ Utilization code for visualizing ROC Curve
@@ -112,7 +118,8 @@ def visualize_ROC_curve(Y_predict_prob, Y_actual, font_size=40):
     plt.rc('legend', fontsize=font_size)
     plt.rc('axes', labelsize=font_size)
     plt.show()
-    
+
+
 def visualize_feature_outcome_pd(impact_outcome_pd,
                                  feature_name="Feature",
                                  score_name="Score",
@@ -127,50 +134,36 @@ def visualize_feature_outcome_pd(impact_outcome_pd,
 
     plt.rc('xtick', labelsize=font_size)
     plt.rc('ytick', labelsize=font_size)
-    fig = plt.figure(figsize=(20,20))
+    fig = plt.figure(figsize=(20, 20))
     ax = fig.gca()
-    impact_outcome_pd.sort_values(by=score_name,
-                                  ascending=False).iloc[:10,:].plot(x=feature_name,
-                           y=score_name,
-                           kind="barh", ax=ax, legend=False)
+    impact_outcome_pd.sort_values(by=score_name, ascending=False).iloc[:10, :].plot(
+        x=feature_name, y=score_name, kind="barh", ax=ax, legend=False)
     plt.title("Feature importances")
     plt.xlabel('Score', fontsize=font_size)
     plt.ylabel('Feature', fontsize=font_size)
     plt.show()
 
-
-from sklearn.metrics import make_scorer, f1_score
-from sklearn.model_selection import learning_curve
-from sklearn.model_selection import ShuffleSplit
+# Credit: adapted from SKLearn example website
+# Source: http://scikit-learn.org/stable/auto_examples/model_selection/plot_learning_curve.html#sphx-glr-auto-examples-model-selection-plot-learning-curve-py
 def plot_learning_curve(estimator, title, X, y, ylim=None, cv=None,
                         n_jobs=1, train_sizes=np.linspace(.1, 1.0, 5),
-                        scorer=make_scorer(f1_score)):
+                        scorer=make_scorer(f1_score), scorer_caption="F1 Score"):
     """
     Generate a simple plot of the test and training learning curve.
 
-    Source: # Adapted from SKLearn example website
-    # Source: http://scikit-learn.org/stable/auto_examples/model_selection/plot_learning_curve.html#sphx-glr-auto-examples-model-selection-plot-learning-curve-py
 
-    Parameters
-    ----------
-    estimator : object type that implements the "fit" and "predict" methods
+    :param estimator: object type that implements the "fit" and "predict" methods
         An object of that type which is cloned for each validation.
-
-    title : string
-        Title for the chart.
-
-    X : array-like, shape (n_samples, n_features)
+    :param title : string
+    :param X : array-like, shape (n_samples, n_features)
         Training vector, where n_samples is the number of samples and
         n_features is the number of features.
-
-    y : array-like, shape (n_samples) or (n_samples, n_features), optional
+    :param y : array-like, shape (n_samples) or (n_samples, n_features), optional
         Target relative to X for classification or regression;
         None for unsupervised learning.
-
-    ylim : tuple, shape (ymin, ymax), optional
+    :param ylim : tuple, shape (ymin, ymax), optional
         Defines minimum and maximum yvalues plotted.
-
-    cv : int, cross-validation generator or an iterable, optional
+    :param cv : int, cross-validation generator or an iterable, optional
         Determines the cross-validation splitting strategy.
         Possible inputs for cv are:
           - None, to use the default 3-fold cross-validation,
@@ -184,16 +177,18 @@ def plot_learning_curve(estimator, title, X, y, ylim=None, cv=None,
 
         Refer :ref:`User Guide <cross_validation>` for the various
         cross-validators that can be used here.
-
-    n_jobs : integer, optional
+    :param train_sizes: numpy array indicating fraction of rows to evaluate
+    :param n_jobs : integer, optional
         Number of jobs to run in parallel (default 1).
+    :param scorer : sklearn scorer to use for visualization
+    :param scorer_caption : caption to describe the scorer
     """
     plt.figure()
     plt.title(title)
     if ylim is not None:
         plt.ylim(*ylim)
     plt.xlabel("Training examples")
-    plt.ylabel("F1 Score")
+    plt.ylabel(scorer_caption)
 
     train_sizes, train_scores, test_scores = learning_curve(
         estimator, X, y, cv=cv, scoring=scorer, n_jobs=n_jobs,  train_sizes=train_sizes)
