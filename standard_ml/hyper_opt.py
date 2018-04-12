@@ -14,7 +14,6 @@ roc_auc_scorer = metrics.make_scorer(metrics.roc_auc_score)
 precisions_scorer = metrics.make_scorer(metrics.precision_score)
 
 
-
 def report_search_scores(results, n_top=5):
     """ Report summary of search scores
     # Credit: source code adapted from SKLearn
