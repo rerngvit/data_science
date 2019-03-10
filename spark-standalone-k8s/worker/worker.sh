@@ -8,7 +8,7 @@ mkdir -p $SPARK_WORKER_LOG
 
 export SPARK_HOME=/spark
 
-ln -sf /dev/stdout $SPARK_WORKER_LOG/spark-worker.out
+# ln -sf /dev/stdout $SPARK_WORKER_LOG/spark-worker.out
 
 echo "Starting spark worker for host at '$SPARK_MASTER_HOST' and port at '$SPARK_MASTER_PORT' "
 
