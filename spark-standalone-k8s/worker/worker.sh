@@ -10,5 +10,4 @@ export SPARK_HOME=/spark
 
 ln -sf /dev/stdout $SPARK_WORKER_LOG/spark-worker.out
 
-/spark/sbin/../bin/spark-class org.apache.spark.deploy.worker.Worker \
-    --webui-port $SPARK_WORKER_WEBUI_PORT spark://$SPARK_MASTER_HOST:$SPARK_MASTER_PORT >> $SPARK_WORKER_LOG/spark-worker.out
+/spark/sbin/../bin/spark-class org.apache.spark.deploy.worker.Worker spark://$SPARK_MASTER_HOST:$SPARK_MASTER_PORT >> $SPARK_WORKER_LOG/spark-worker.out
