@@ -58,6 +58,7 @@ spec:
       containers:
         - name: {{ template "master-fullname" . }}
           image: "{{ .Values.Master.Image }}:{{ .Values.Master.ImageTag }}"
+          imagePullPolicy: Always
           command: ["/bin/sh", "/master.sh"]
           args: ["echo $(hostname -i) {{ template "master-fullname" . }} >> /etc/hosts;"]
           ports:

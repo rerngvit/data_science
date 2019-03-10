@@ -40,3 +40,20 @@ spec:
             value: {{ .Values.Master.ServicePort | quote }}
           - name: SPARK_MASTER_WEBUI_PORT
             value: {{ .Values.WebUi.ContainerPort | quote }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ template "base-fullname" . }}
+  labels:
+    heritage: {{ .Release.Service | quote }}
+    release: {{ .Release.Name | quote }}
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+    component: "{{ .Release.Name }}-{{ .Values.Base.Component }}"
+spec:
+  ports:
+    - port: {{ .Values.Base.ServicePort }}
+      targetPort: {{ .Values.Base.ContainerPort }}
+  selector:
+    component: "{{ .Release.Name }}-{{ .Values.Base.Component }}"
+    type: {{ .Values.Base.ServiceType }}

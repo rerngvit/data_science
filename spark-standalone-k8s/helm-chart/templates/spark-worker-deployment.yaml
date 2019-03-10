@@ -38,6 +38,8 @@ spec:
             value: {{ template "master-fullname" . }}
           - name: SPARK_MASTER_PORT
             value: {{ .Values.Master.ServicePort | quote }}
+          - name: SPARK_WORKER_WEBUI_PORT
+            value: {{ .Values.Worker.ContainerPort | quote }}
           - name: SPARK_DAEMON_MEMORY
             value: {{ default "1g" .Values.Worker.DaemonMemory | quote }}
           - name: SPARK_WORKER_MEMORY
