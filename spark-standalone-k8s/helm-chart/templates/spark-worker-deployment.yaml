@@ -33,6 +33,8 @@ spec:
               cpu: "{{ .Values.Worker.Cpu }}"
               memory: "{{ .Values.Worker.Memory }}"
           env:
+          - name: SPARK_MASTER_HOST
+            value: {{ template "master-fullname" . }}
           - name: SPARK_DAEMON_MEMORY
             value: {{ default "1g" .Values.Worker.DaemonMemory | quote }}
           - name: SPARK_WORKER_MEMORY

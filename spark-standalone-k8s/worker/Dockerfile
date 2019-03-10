@@ -9,4 +9,4 @@ ENV SPARK_WORKER_LOG /spark/logs
 
 EXPOSE 8081
 
-CMD ["/bin/bash", "/worker.sh"]
+CMD ["/bin/bash", "/wait-for-step.sh", "/worker.sh"]
