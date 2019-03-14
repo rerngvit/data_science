@@ -54,4 +54,4 @@ Base:
   Memory: "512Mi"
   ContainerPort: 8082
   ServicePort: 8082
-  ServiceType: NodePort
+  ServiceType: Node
