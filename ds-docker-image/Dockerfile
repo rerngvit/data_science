@@ -19,7 +19,7 @@ RUN pip3 install ipykernel && python3 -m ipykernel install
 RUN pip3 install virtualenv 
 
 # General data processing
-RUN pip3 install pandas numpy
+RUN pip3 install pandas numpy pyspark
 
 # Workflow processing for batch jobs
 RUN luigi apache-airflow
