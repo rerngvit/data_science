@@ -56,4 +56,5 @@ spec:
       targetPort: {{ .Values.Base.ContainerPort }}
   selector:
     component: "{{ .Release.Name }}-{{ .Values.Base.Component }}"
-    type: {{ .Values.Base.ServiceType }}
+  type: {{ .Values.Base.ServiceType }}
+  clusterIP: None
