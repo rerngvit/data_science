@@ -11,6 +11,7 @@ RUN apt-get install -y curl python3 python3-pip python-dev build-essential \
                 
 # Jupyter
 RUN pip3 install --upgrade pip setuptools
+RUN pip3 install jupyter
 RUN pip3 install jupyterlab
 RUN pip3 install ipykernel && python3 -m ipykernel install  
 
@@ -19,6 +20,9 @@ RUN pip3 install virtualenv
 
 # General data processing
 RUN pip3 install pandas numpy
+
+# Workflow processing for batch jobs
+RUN luigi apache-airflow
 
 # Machine learning
 RUN pip3 install sklearn tensorflow imblearn keras GPy tpot fancyimpute
