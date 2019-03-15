@@ -1,6 +1,6 @@
 FROM ubuntu:18.04
 
-ENV PORT 8888
+ENV PORT 8888 8080
 EXPOSE $PORT
 
 RUN apt-get update 
