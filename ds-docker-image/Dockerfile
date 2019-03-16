@@ -1,6 +1,6 @@
 FROM ubuntu:18.04
 
-ENV PORT 8888 8080
+ENV PORT 8888
 EXPOSE $PORT
 
 RUN apt-get update 
@@ -21,8 +21,13 @@ RUN pip3 install virtualenv
 # General data processing
 RUN pip3 install pandas numpy pyspark
 
+
+
 # Workflow processing for batch jobs
-RUN luigi apache-airflow
+RUN pip3 install luigi
+
+ENV SLUGIFY_USES_TEXT_UNIDECODE=yes
+RUN pip3 install apache-airflow
 
 # Machine learning
 RUN pip3 install sklearn tensorflow imblearn keras GPy tpot fancyimpute
@@ -47,8 +52,8 @@ RUN python3 -m nltk.downloader -d /usr/local/share/nltk_data all
 
 # Dask packages requirement
 RUN pip3 install h5py Pillow matplotlib scipy toolz snakeviz graphviz 
-RUN pip3 install dask distributed  
-
+RUN pip3 install dask distributed 
+ 
 RUN mkdir /data
 
 USER $NB_USER
