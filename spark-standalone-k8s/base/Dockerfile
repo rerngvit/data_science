@@ -15,8 +15,10 @@ COPY wait-for-step.sh /
 COPY execute-step.sh /
 COPY finish-step.sh /
 
-RUN apk add --no-cache curl bash openjdk8-jre python3 py-pip \
-      && chmod +x *.sh \
+RUN apt-get update
+RUN apt-get install -y openjdk-8-jdk python3.6 python3-pip wget
+
+RUN   chmod +x *.sh \
       && wget http://apache.mirror.iphh.net/spark/spark-${SPARK_VERSION}/spark-${SPARK_VERSION}-bin-hadoop${HADOOP_VERSION}.tgz \
       && tar -xvzf spark-${SPARK_VERSION}-bin-hadoop${HADOOP_VERSION}.tgz \
       && mv spark-${SPARK_VERSION}-bin-hadoop${HADOOP_VERSION} spark \
