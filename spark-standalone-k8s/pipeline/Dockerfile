@@ -1,6 +1,6 @@
 # Credit: adapt from https://github.com/big-data-europe/docker-spark/blob/master/master/Dockerfile
 
-FROM bde2020/spark-base:2.4.0-hadoop2.7
+FROM rerng007/spark-standalone-k8s:spark-base
 
 RUN apt-get update 
 
@@ -17,8 +17,11 @@ RUN pip3 install ipykernel && python3 -m ipykernel install
 # Python packages
 RUN pip3 install virtualenv 
 
-# Workflow processing
-RUN luigi apache-airflow
+# Workflow processing for batch jobs
+RUN pip3 install luigi
+
+ENV SLUGIFY_USES_TEXT_UNIDECODE=yes
+RUN pip3 install apache-airflow
 
 # General data processing
 RUN pip3 install pandas numpy 
