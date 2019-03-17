@@ -1,0 +1,9 @@
+name: spark
+version: 0.1.1
+appVersion: 2.4.0
+description: Fast and general-purpose cluster computing system.
+home: http://spark.apache.org
+icon: http://spark.apache.org/images/spark-logo-trademark.png
+sources:
+  - https://github.com/kubernetes/kubernetes/tree/master/examples/spark
+  - https://github.com/apache/spark
