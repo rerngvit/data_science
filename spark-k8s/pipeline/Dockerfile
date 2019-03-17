@@ -6,8 +6,15 @@ RUN apt-get update
 
 # Basic Ubuntu Dependencies  
 RUN apt-get install -y curl python3 python3-pip python-dev build-essential \
-                 python3-dev python3-setuptools
-                
+                 python3-dev python3-setuptools iputils-ping vim
+
+# Install Kubectl for controlling a K8S cluster
+RUN apt-get install -y apt-transport-https
+RUN curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
+RUN echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" | tee -a /etc/apt/sources.list.d/kubernetes.list
+RUN apt-get update
+RUN apt-get install -y kubectl
+
 # Jupyter
 RUN pip3 install --upgrade pip setuptools
 RUN pip3 install jupyter
@@ -36,7 +43,9 @@ RUN pip3 install boto3 awscli
 RUN pip3 install nltk gensim
 
 # Download NLTK Data
-RUN python3 -m nltk.downloader -d /usr/local/share/nltk_data all
+# RUN python3 -m nltk.downloader -d /usr/local/share/nltk_data all
+
+COPY kube_config /
 
 EXPOSE 8080 8082 9000
 
