@@ -22,6 +22,7 @@ spec:
         chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
         component: "{{ .Release.Name }}-{{ .Values.Base.Component }}"
     spec:
+      serviceAccountName: spark
       containers:
         - name: {{ template "base-fullname" . }}
           image: "{{ .Values.Base.Image }}:{{ .Values.Base.ImageTag }}"

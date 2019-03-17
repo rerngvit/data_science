@@ -29,7 +29,7 @@ Worker:
   Name: worker
   Image: "rerng007/spark-standalone-k8s"
   ImageTag: "spark-worker"
-  Replicas: 3
+  Replicas: 1
   Component: "spark-worker"
   Cpu: "100m"
   Memory: "512Mi"
@@ -46,8 +46,8 @@ Worker:
 
 Base:
   Name: base
-  Image: "bde2020/spark-base"
-  ImageTag: "2.4.0-hadoop2.7"
+  Image: "rerng007/spark-standalone-k8s"
+  ImageTag: "pipeline"
   Replicas: 1
   Component: "spark-base"
   Cpu: "100m"
