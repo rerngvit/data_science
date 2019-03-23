@@ -22,7 +22,6 @@ RUN pip3 install virtualenv
 RUN pip3 install pandas numpy pyspark
 
 
-
 # Workflow processing for batch jobs
 RUN pip3 install luigi
 
@@ -55,7 +54,5 @@ RUN pip3 install h5py Pillow matplotlib scipy toolz snakeviz graphviz
 RUN pip3 install dask distributed 
  
 RUN mkdir /data
-
-USER $NB_USER
 CMD cd /data && \
      /usr/local/bin/jupyter lab --port=$PORT --ip=0.0.0.0 --no-browser --allow-root
