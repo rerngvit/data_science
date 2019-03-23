@@ -47,10 +47,12 @@ RUN pip3 install nltk gensim
 
 COPY kube_config /
 
+# For jupyter lab
+ENV PORT 8888
+EXPOSE $PORT
+
+# For other use cases
 EXPOSE 8080 8082 9000
-
-
-CMD ["/bin/bash"]
 
 RUN mkdir /data
 CMD cd /data && \
