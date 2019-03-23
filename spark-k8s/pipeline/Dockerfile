@@ -6,7 +6,7 @@ RUN apt-get update
 
 # Basic Ubuntu Dependencies  
 RUN apt-get install -y curl python3 python3-pip python-dev build-essential \
-                 python3-dev python3-setuptools iputils-ping vim
+                 python3-dev python3-setuptools 
 
 # Install Kubectl for controlling a K8S cluster
 RUN apt-get install -y apt-transport-https
@@ -51,3 +51,7 @@ EXPOSE 8080 8082 9000
 
 
 CMD ["/bin/bash"]
+
+RUN mkdir /data
+CMD cd /data && \
+     /usr/local/bin/jupyter lab --port=$PORT --ip=0.0.0.0 --no-browser --allow-root
