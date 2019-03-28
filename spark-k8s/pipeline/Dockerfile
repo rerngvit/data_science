@@ -5,7 +5,7 @@ FROM rerng007/spark-standalone-k8s:spark-base
 RUN apt-get update 
 
 # Basic Ubuntu Dependencies  
-RUN apt-get install -y curl python3 python3-pip python-dev build-essential \
+RUN apt-get install -y curl python3 python3-pip python-dev build-essential git-core \
                  python3-dev python3-setuptools 
 
 # Install Kubectl for controlling a K8S cluster
