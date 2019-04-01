@@ -22,9 +22,18 @@ spec:
         chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
         component: "{{ .Release.Name }}-{{ .Values.Worker.Component }}"
     spec:
+      volumes:
+        - name: {{ .Values.SharedVolume.Name }}
+          hostPath:
+            # directory location on host
+            path: {{ .Values.SharedVolume.HostPath }}
+            type: Directory
       containers:
         - name: {{ template "worker-fullname" . }}
           image: "{{ .Values.Worker.Image }}:{{ .Values.Worker.ImageTag }}"
+          volumeMounts:
+          - name: {{ .Values.SharedVolume.Name }}
+            mountPath: {{ .Values.SharedVolume.MountPoint }}
           imagePullPolicy: Always
           command: ["/bin/bash", "/worker.sh"]
           ports:

@@ -6,6 +6,11 @@
 Spark:
   Path: "/opt/spark"
 
+SharedVolume:
+  Name: test-volume
+  MountPoint: /mount-minikube
+  HostPath: /home/docker
+
 Master:
   Name: master
   Image: "rerng007/spark-standalone-k8s"
