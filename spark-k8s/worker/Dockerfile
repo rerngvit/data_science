@@ -12,6 +12,12 @@ EXPOSE 8081
 RUN apt-get install -y curl python3 python3-pip python-dev build-essential git-core zip \
                  python3-dev python3-setuptools 
 
+# General data processing
+RUN pip3 install pandas numpy 
+
+# Machine learning
+RUN pip3 install sklearn tensorflow imblearn keras GPy tpot fancyimpute tensorflow-hub
+
 # Natural language processing
 RUN pip3 install nltk gensim praw
 

@@ -34,7 +34,7 @@ RUN pip3 install apache-airflow
 RUN pip3 install pandas numpy 
 
 # Machine learning
-RUN pip3 install sklearn tensorflow imblearn keras GPy tpot fancyimpute
+RUN pip3 install sklearn tensorflow imblearn keras GPy tpot fancyimpute tensorflow-hub
 
 # Cloud API access
 RUN pip3 install boto3 awscli
