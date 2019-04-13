@@ -1,3 +1,6 @@
 */.ipynb_checkpoints/*.ipynb
 .idea/*
 .vscode/*
+dnn/char_seq2seq/trained_models/*
+dnn/char_seq2seq/__pycache__/*
+dnn/char_seq2seq/dataset/*
