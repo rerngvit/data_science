@@ -18,6 +18,9 @@ RUN pip3 install pandas numpy
 # Machine learning
 RUN pip3 install sklearn tensorflow imblearn keras GPy tpot fancyimpute tensorflow-hub
 
+# Data access library
+RUN pip3 install petastorm pyarrow
+
 # Natural language processing
 RUN pip3 install nltk gensim praw
 

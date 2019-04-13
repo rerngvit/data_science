@@ -36,6 +36,9 @@ RUN pip3 install pandas numpy
 # Machine learning
 RUN pip3 install sklearn tensorflow imblearn keras GPy tpot fancyimpute tensorflow-hub
 
+# Data access library
+RUN pip3 install petastorm pyarrow
+
 # Cloud API access
 RUN pip3 install boto3 awscli
 
