@@ -1,6 +1,9 @@
 */.ipynb_checkpoints/*.ipynb
 .idea/*
 .vscode/*
-dnn/char_seq2seq/trained_models/*
-dnn/char_seq2seq/__pycache__/*
-dnn/char_seq2seq/dataset/*
+dnn/*/.ipynb_checkpoints/*
+dnn/*/trained_models/*
+dnn/*/__pycache__/*
+dnn/*/dataset/*
+dnn/*/Templates_from_ds_toolbox/*
+spark-k8s/.vscode/*
