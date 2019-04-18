@@ -8,12 +8,8 @@ RUN apt-get update
 RUN apt-get install -y curl python3 python3-pip python-dev build-essential git-core zip \
                  python3-dev python3-setuptools 
 
-# Install Kubectl for controlling a K8S cluster
-# RUN apt-get install -y apt-transport-https
-# RUN curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
-# RUN echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" | tee -a /etc/apt/sources.list.d/kubernetes.list
-# RUN apt-get update
-# RUN apt-get install -y kubectl
+# Network utilities tool
+RUN apt-get install -y wget dnsutils iputils-ping
 
 # Jupyter
 RUN pip3 install --upgrade pip setuptools

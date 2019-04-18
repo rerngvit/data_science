@@ -1,0 +1,60 @@
+
+# Minikube command
+
+
+# Local 
+/spark/bin/spark-submit  --class org.apache.spark.examples.SparkPi --master local[2] /spark/examples/jars/spark-examples_2.11-2.4.0.jar 100
+
+
+# Spark master - client mode
+/spark/bin/spark-submit  --class org.apache.spark.examples.SparkPi --master spark://spark-standalone-master:7077 /spark/examples/jars/spark-examples_2.11-2.4.0.jar 100
+
+# Spark master - client mode - manual IP
+/spark/bin/spark-submit  --conf spark.driver.host="spark-standalone-base" --class org.apache.spark.examples.SparkPi --master spark://spark-standalone-master:7077 /spark/examples/jars/spark-examples_2.11-2.4.0.jar 100
+
+
+# Spark master - cluster mode
+/spark/bin/spark-submit  --class org.apache.spark.examples.SparkPi --master spark://spark-standalone-master:7077 --deploy-mode cluster /spark/examples/jars/spark-examples_2.11-2.4.0.jar 100
+
+
+
+/spark/bin/spark-submit  --conf spark.driver.host="spark-standalone-base" --class org.apache.spark.examples.SparkPi --master spark://spark-standalone-master:7077 --conf spark.executor.heartbeatInterval='60s' --conf spark.files.fetchTimeout="250s" --conf spark.network.timeout='150s' --conf spark.rpc.lookupTimeout="300s" /spark/examples/jars/spark-examples_2.11-2.4.0.jar 100
+
+
+/spark/bin/spark-submit --conf spark.driver.host="spark-standalone-base"  --master k8s://https://192.168.1.169:8443 --deploy-mode client --name spark-pi --class org.apache.spark.examples.SparkPi --conf spark.executor.instances=1 --conf spark.kubernetes.authenticate.driver.serviceAccountName=spark --conf spark.kubernetes.container.image=rerng007/spark-standalone-k8s:k8s_spark_dev /spark/examples/jars/spark-examples_2.11-2.4.0.jar
+
+
+
+
+# Run Spark driver from a host
+
+/spark/bin/spark-submit --master k8s://https://192.168.1.169:8443 --deploy-mode client --name spark-pi --class org.apache.spark.examples.SparkPi --conf spark.executor.instances=1 --conf spark.kubernetes.authenticate.driver.serviceAccountName=spark --conf spark.kubernetes.container.image=rerng007/spark-standalone-k8s:k8s_spark_dev /spark/examples/jars/spark-examples_2.11-2.4.0.jar
+
+
+/spark/bin/spark-submit --master k8s://https://192.168.1.169:8443 --deploy-mode cluster --name spark-pi --class org.apache.spark.examples.SparkPi --conf spark.executor.instances=1 --conf spark.kubernetes.container.image=rerng007/spark-standalone-k8s:k8s_spark_dev /spark/examples/jars/spark-examples_2.11-2.4.0.jar
+
+# Run Spark driver from a inside a Docker container
+
+/spark/bin/spark-submit --conf spark.driver.host="192.168.1.131" --conf spark.driver.port=9000 --master k8s://https://192.168.1.169:8443 --deploy-mode client --name spark-pi --class org.apache.spark.examples.SparkPi --conf spark.executor.instances=1 --conf spark.kubernetes.container.image=rerng007/spark-standalone-k8s:k8s_spark_dev /spark/examples/jars/spark-examples_2.11-2.4.0.jar
+
+################ HELM
+
+helm install --name pipeline-master helm-chart-pipeline-master\
+
+helm delete --purge pipeline-master
+
+## Run Spark driver from a pod within K8S
+/spark/bin/spark-submit --conf spark.driver.host="pipeline-master-base"  --master k8s://https://192.168.1.169:8443 --deploy-mode client --name spark-pi --class org.apache.spark.examples.SparkPi --conf spark.executor.instances=1 --conf spark.kubernetes.authenticate.driver.serviceAccountName=spark --conf spark.kubernetes.container.image=rerng007/spark-standalone-k8s:k8s_spark_dev /spark/examples/jars/spark-examples_2.11-2.4.0.jar
+
+## Assuming that we have a pod running inside a server
+# Run directly from a host that has kubectl access
+ kubectl exec pipeline-master-base-6d888599fd-f9jps -- /spark/bin/spark-submit --conf spark.driver.host="pipeline-master-base"  --master k8s://https://192.168.1.132:8443 --deploy-mode client --name spark-pi --class org.apache.spark.examples.SparkPi --conf spark.executor.instances=1 --conf spark.kubernetes.authenticate.driver.serviceAccountName=spark --conf spark.kubernetes.container.image=rerng007/spark-standalone-k8s:k8s_spark_dev /spark/examples/jars/spark-examples_2.11-2.4.0.jar
+
+
+
+
+kubectl exec pipeline-master-base-6d888599fd-f9jps -- /spark/bin/spark-submit --conf spark.driver.host="pipeline-master-base" --master local[2] /spark/examples/src/main/python/pi.py 100
+
+# Working solution
+kubectl exec pipeline-master-base-6d888599fd-f9jps -- /spark/bin/spark-submit --conf spark.driver.host="pipeline-master-base" --master k8s://https://192.168.1.132:8443 --deploy-mode client --name spark-pi --conf spark.executor.instances=1 --conf spark.kubernetes.authenticate.driver.serviceAccountName=spark --conf spark.kubernetes.container.image=rerng007/spark-standalone-k8s:pyspark-k8s-dev --conf spark.kubernetes.pyspark.pythonVersion="3" /spark/examples/src/main/python/pi.py 50
+

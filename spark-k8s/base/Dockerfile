@@ -17,8 +17,11 @@ COPY finish-step.sh /
 
 RUN apt-get update
 
-# Java and Python
-RUN apt-get install -y openjdk-8-jdk python3.6 python3-pip 
+# Java 
+RUN apt-get install -y openjdk-8-jdk 
+
+# Python
+RUN apt-get install -y python3.6 python3-pip 
 
 # Network utilities tool
 RUN apt-get install -y wget dnsutils iputils-ping
