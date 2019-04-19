@@ -36,16 +36,16 @@ Worker:
   ImageTag: "spark-worker"
   Replicas: 1
   Component: "spark-worker"
-  Cpu: "1000m"
+  Cpu: "500m"
   CpuLimit: "3000m"
   Memory: "1500Mi"
-  MemoryLimit: "5000Mi"
+  MemoryLimit: "6500Mi"
   ServicePort: 8081
   ContainerPort: 8081
   # Set Worker JVM memory. Default 1g
   DaemonMemory: "1g"
   # Set how much total memory workers have to give executors
-  ExecutorMemory: "3g"
+  ExecutorMemory: "5g"
   Autoscaling:
     Enabled: false
   ReplicasMax: 10
