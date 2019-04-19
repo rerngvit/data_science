@@ -37,13 +37,15 @@ Worker:
   Replicas: 1
   Component: "spark-worker"
   Cpu: "1000m"
-  Memory: "2500Mi"
+  CpuLimit: "3000m"
+  Memory: "1500Mi"
+  MemoryLimit: "5000Mi"
   ServicePort: 8081
   ContainerPort: 8081
   # Set Worker JVM memory. Default 1g
   DaemonMemory: "1g"
   # Set how much total memory workers have to give executors
-  ExecutorMemory: "2g"
+  ExecutorMemory: "3g"
   Autoscaling:
     Enabled: false
   ReplicasMax: 10
@@ -55,8 +57,10 @@ Base:
   ImageTag: "pipeline"
   Replicas: 1
   Component: "spark-base"
-  Cpu: "1000m"
-  Memory: "2000Mi"
+  Cpu: "200m"
+  CpuLimit: "1000m"
+  Memory: "500Mi"
+  MemoryLimit: "1000Mi"
   ContainerPort: 8082
   ServicePort: 8082
   ServiceType: ClusterIP

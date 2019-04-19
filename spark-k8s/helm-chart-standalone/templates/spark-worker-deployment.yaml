@@ -42,6 +42,9 @@ spec:
             requests:
               cpu: "{{ .Values.Worker.Cpu }}"
               memory: "{{ .Values.Worker.Memory }}"
+            limits:
+              cpu: "{{ .Values.Worker.CpuLimit }} "
+              memory: "{{ .Values.Worker.MemoryLimit }}"
           env:
           - name: SPARK_MASTER_HOST
             value: {{ template "master-fullname" . }}
