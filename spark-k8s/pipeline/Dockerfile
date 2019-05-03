@@ -9,7 +9,7 @@ RUN apt-get install -y curl python3 python3-pip python-dev build-essential git-c
                  python3-dev python3-setuptools 
 
 # Network utilities tool
-RUN apt-get install -y wget dnsutils iputils-ping
+# RUN apt-get install -y wget dnsutils iputils-ping
 
 # Jupyter
 RUN pip3 install --upgrade pip setuptools

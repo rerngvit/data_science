@@ -45,7 +45,7 @@ Worker:
   # Set Worker JVM memory. Default 1g
   DaemonMemory: "1g"
   # Set how much total memory workers have to give executors
-  ExecutorMemory: "5g"
+  ExecutorMemory: "4g"
   Autoscaling:
     Enabled: false
   ReplicasMax: 10
