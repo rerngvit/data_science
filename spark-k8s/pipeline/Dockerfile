@@ -25,6 +25,10 @@ RUN pip3 install luigi
 
 ENV SLUGIFY_USES_TEXT_UNIDECODE=yes
 RUN pip3 install apache-airflow
+RUN airflow initdb
+RUN airflow webserver -p 8080 &
+RUN airflow scheduler &
+
 
 # General data processing
 RUN pip3 install pandas numpy 
