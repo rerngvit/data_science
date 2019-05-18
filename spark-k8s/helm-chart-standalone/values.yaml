@@ -23,12 +23,13 @@ Master:
   ContainerPort: 7077
   # Set Master JVM memory. Default 1g
   # DaemonMemory: 1g
-  ServiceType: LoadBalancer
+  ServiceType: ClusterIP
 
 WebUi:
   Name: webui
   ServicePort: 8080
   ContainerPort: 8080
+  ServiceType: LoadBalancer
 
 Worker:
   Name: worker
@@ -37,7 +38,7 @@ Worker:
   Replicas: 10
   Component: "spark-worker"
   Cpu: "500m"
-  CpuLimit: "3000m"
+  CpuLimit: "1000m"
   Memory: "6000Mi"
   MemoryLimit: "11500Mi"
   ServicePort: 8081
