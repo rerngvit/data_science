@@ -23,9 +23,7 @@ RUN pip3 install luigi
 ENV SLUGIFY_USES_TEXT_UNIDECODE=yes
 RUN pip3 install apache-airflow
 RUN airflow initdb
-RUN airflow webserver -p 8080 &
-RUN airflow scheduler &
-
+CMD ["airflow webserver -p 8080 &", "airflow scheduler &"]
 
 # General data processing
 RUN pip3 install pandas numpy 
@@ -59,5 +57,7 @@ ENV PATH $PATH:$SPARK_HOME/bin
 EXPOSE 8080 8082 9000
 
 RUN mkdir /data
-CMD cd /data && \
-     /usr/local/bin/jupyter lab --port=$PORT --ip=0.0.0.0 --no-browser --allow-root
+
+COPY pipeline.sh /
+
+CMD ["/bin/bash", "/pipeline.sh"]
