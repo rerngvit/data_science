@@ -27,11 +27,11 @@ metadata:
     component: "{{ .Release.Name }}-{{ .Values.Master.Component }}"
 spec:
   ports:
-    - port: {{ .Values.WebUi.ServicePort }}
-      targetPort: {{ .Values.WebUi.ContainerPort }}
+    - port: {{ .Values.WebUi.ContainerPort }}
+      nodePort: {{ .Values.WebUi.NodePort }}
   selector:
     component: "{{ .Release.Name }}-{{ .Values.Master.Component }}"
-  type: {{ .Values.Master.ServiceType }}
+  type: {{ .Values.WebUi.ServiceType }}
 ---
 apiVersion: extensions/v1beta1
 kind: Deployment

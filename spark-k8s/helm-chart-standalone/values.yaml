@@ -28,19 +28,20 @@ Master:
 WebUi:
   Name: webui
   ServicePort: 8080
+  NodePort: 30000
   ContainerPort: 8080
-  ServiceType: LoadBalancer
+  ServiceType: NodePort
 
 Worker:
   Name: worker
   Image: "rerng007/spark-standalone-k8s"
   ImageTag: "spark-worker"
-  Replicas: 10
+  Replicas: 12
   Component: "spark-worker"
   Cpu: "500m"
   CpuLimit: "1000m"
   Memory: "6000Mi"
-  MemoryLimit: "11500Mi"
+  MemoryLimit: "8500Mi"
   ServicePort: 8081
   ContainerPort: 8081
   # Set Worker JVM memory. Default 1g
@@ -49,7 +50,7 @@ Worker:
   ExecutorMemory: "5g"
   Autoscaling:
     Enabled: false
-  ReplicasMax: 10
+  ReplicasMax: 12
   CpuTargetPercentage: 50
 
 Base:
@@ -62,6 +63,10 @@ Base:
   CpuLimit: "1000m"
   Memory: "4000Mi"
   MemoryLimit: "8000Mi"
-  ContainerPort: 8082
-  ServicePort: 8082
+  SparkAppUI_NodePort: 30040
+  SparkAppUI_ContainerPort: 4040
+  Airflow_NodePort: 30080
+  Airflow_ContainerPort: 8080 
+  ContainerPort: 4040
+  ServicePort: 8082  
   ServiceType: ClusterIP
