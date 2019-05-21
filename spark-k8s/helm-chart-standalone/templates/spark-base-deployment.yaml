@@ -83,9 +83,10 @@ metadata:
 spec:
   ports:
     - port: {{ .Values.Base.SparkAppUI_ContainerPort }}
+      targetPort:  {{ .Values.Base.SparkAppUI_ContainerPort }}
       nodePort: {{ .Values.Base.SparkAppUI_NodePort }}
   selector:
-    component: "{{ .Release.Name }}-{{ .Values.Master.Component }}"
+    component: "{{ .Release.Name }}-{{ .Values.Base.Component }}"
   type: NodePort
 ---
 apiVersion: v1
@@ -100,8 +101,9 @@ metadata:
 spec:
   ports:
     - port: {{ .Values.Base.Airflow_ContainerPort }}
+      targetPort:  {{ .Values.Base.Airflow_ContainerPort }}
       nodePort: {{ .Values.Base.Airflow_NodePort }}
-      
+
   selector:
-    component: "{{ .Release.Name }}-{{ .Values.Master.Component }}"
+    component: "{{ .Release.Name }}-{{ .Values.Base.Component }}"
   type: NodePort
