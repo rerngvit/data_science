@@ -43,8 +43,6 @@ RUN pip3 install nltk gensim praw
 # Download NLTK Data
 # RUN python3 -m nltk.downloader -d /usr/local/share/nltk_data all
 
-COPY kube_config /
-
 # For jupyter lab
 ENV PORT 8888
 EXPOSE $PORT
