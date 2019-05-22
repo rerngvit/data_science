@@ -32,8 +32,8 @@ RUN apt-get install -y vim
 # Version control with git
 RUN apt-get install -y git-core 
 
-# Zip utility
-RUN apt-get install -y zip
+# Zip and Bzip2 utilities
+RUN apt-get install -y zip bzip2
 
 # Background execution utility
 RUN apt-get install screen
