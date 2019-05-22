@@ -36,7 +36,7 @@ RUN apt-get install -y git-core
 RUN apt-get install -y zip bzip2
 
 # Background execution utility
-RUN apt-get install screen
+RUN apt-get install -y screen
 
 RUN   chmod +x *.sh \
       && wget http://apache.mirror.iphh.net/spark/spark-${SPARK_VERSION}/spark-${SPARK_VERSION}-bin-hadoop${HADOOP_VERSION}.tgz \
