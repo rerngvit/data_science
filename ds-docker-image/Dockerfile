@@ -19,7 +19,7 @@ RUN pip3 install ipykernel && python3 -m ipykernel install
 RUN pip3 install virtualenv 
 
 # General data processing
-RUN pip3 install pandas numpy pyspark
+RUN pip3 install pandas numpy pyspark pyarrow
 
 
 # Workflow processing for batch jobs
