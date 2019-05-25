@@ -29,6 +29,7 @@ RUN pip3 install tensorflow-hub
 RUN pip3 install flask flask_restful
 
 COPY src /src
+COPY tf_hub_cache /tf_hub_cache
 
 ENTRYPOINT ["python"]
 

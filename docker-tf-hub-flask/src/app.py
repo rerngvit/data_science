@@ -15,7 +15,7 @@ graph = tf.Graph()
 def load_sentence_encoder():
     global model, session, graph
     print(" Start initializing Tensorflow hub")
-    #os.environ["TFHUB_CACHE_DIR"] = 'D:/Dropbox/coding_workspace/analytic-workspace/dataset/minikube-data-snapshots/workspace/tf_hub_module_cache'
+    os.environ["TFHUB_CACHE_DIR"] = '/tf_hub_cache'
     # Create and intialize the Tensorflow session
     with graph.as_default():    
         module_url = "https://tfhub.dev/google/universal-sentence-encoder/2"
