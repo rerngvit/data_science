@@ -1,4 +1,3 @@
-import numpy as np
 import flask
 import io, os
 import tensorflow as tf
