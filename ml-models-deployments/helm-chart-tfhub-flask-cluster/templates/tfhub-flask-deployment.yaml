@@ -1,0 +1,53 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: {{ template "tfhub-flask-fullname" . }}
+  labels:
+    heritage: {{ .Release.Service | quote }}
+    release: {{ .Release.Name | quote }}
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+    component: "{{ .Release.Name }}-{{ .Values.TFHubFlask.Component }}"
+spec:
+  replicas: {{ default 1 .Values.TFHubFlask.Replicas }}
+  strategy:
+    type: RollingUpdate
+  selector:
+    matchLabels:
+      component: "{{ .Release.Name }}-{{ .Values.TFHubFlask.Component }}"
+  template:
+    metadata:
+      labels:
+        heritage: {{ .Release.Service | quote }}
+        release: {{ .Release.Name | quote }}
+        chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+        component: "{{ .Release.Name }}-{{ .Values.TFHubFlask.Component }}"
+    spec:
+      containers:
+        - name: {{ template "tfhub-flask-fullname" . }}
+          image: "{{ .Values.TFHubFlask.Image }}:{{ .Values.TFHubFlask.ImageTag }}"
+          imagePullPolicy: Always
+          command: ["python3", "src/app.py"]
+          ports:
+            - containerPort: {{ .Values.TFHubFlask.ContainerPort }}
+          resources:
+            requests:
+              cpu: "{{ .Values.TFHubFlask.Cpu }}"
+              memory: "{{ .Values.TFHubFlask.Memory }}"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ template "tfhub-flask-fullname" . }}
+  labels:
+    heritage: {{ .Release.Service | quote }}
+    release: {{ .Release.Name | quote }}
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+    component: "{{ .Release.Name }}-{{ .Values.TFHubFlask.Component }}"
+spec:
+  ports:
+    - port: {{ .Values.TFHubFlask.ServicePort }}
+      targetPort: {{ .Values.TFHubFlask.ContainerPort }}
+      nodePort: {{ .Values.TFHubFlask.NodePort }}
+  selector:
+    component: "{{ .Release.Name }}-{{ .Values.TFHubFlask.Component }}"
+  type: {{ .Values.TFHubFlask.ServiceType }}

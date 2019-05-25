@@ -36,21 +36,21 @@ Worker:
   Name: worker
   Image: "rerng007/spark-standalone-k8s"
   ImageTag: "spark-worker"
-  Replicas: 10
+  Replicas: 9
   Component: "spark-worker"
   Cpu: "500m"
   CpuLimit: "1000m"
-  Memory: "10000Mi"
-  MemoryLimit: "10500Mi"
+  Memory: "11000Mi"
+  MemoryLimit: "12000Mi"
   ServicePort: 8081
   ContainerPort: 8081
   # Set Worker JVM memory. Default 1g
   DaemonMemory: "1g"
   # Set how much total memory workers have to give executors
-  ExecutorMemory: "9g"
+  ExecutorMemory: "10g"
   Autoscaling:
     Enabled: false
-  ReplicasMax: 10
+  ReplicasMax: 9
   CpuTargetPercentage: 50
 
 Base:

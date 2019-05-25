@@ -1,0 +1,6 @@
+name: tfhub-flask-cluster
+version: 0.1.1
+description: Deployment of TFHub model over Flask application
+sources:
+  - https://www.tensorflow.org/hub
+  - http://flask.pocoo.org/
