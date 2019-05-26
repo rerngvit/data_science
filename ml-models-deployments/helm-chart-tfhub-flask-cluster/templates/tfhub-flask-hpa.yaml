@@ -1,0 +1,23 @@
+{{- if .Values.TFHubFlask.Autoscaling.Enabled }}
+apiVersion: autoscaling/v2beta1
+kind: HorizontalPodAutoscaler
+metadata:
+  labels:
+    heritage: {{ .Release.Service | quote }}
+    release: {{ .Release.Name | quote }}
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+    component: "{{ .Release.Name }}-{{ .Values.TFHubFlask.Component }}"
+  name: {{ template "tfhub-flask-fullname" . }}
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1beta1
+    kind: Deployment
+    name: {{ template "tfhub-flask-fullname" . }}
+  minReplicas: {{ .Values.TFHubFlask.Replicas }}
+  maxReplicas: {{ .Values.TFHubFlask.ReplicasMax }}
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      targetAverageUtilization: {{ .Values.TFHubFlask.CpuTargetPercentage }}
+{{- end }}
