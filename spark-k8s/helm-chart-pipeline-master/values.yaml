@@ -12,7 +12,7 @@ Base:
   ImageTag: "pipeline"
   Replicas: 1
   Component: "spark-base"
-  Cpu: "100m"
+  Cpu: "500m"
   Memory: "512Mi"
   ContainerPort: 8082
   ServicePort: 8082
