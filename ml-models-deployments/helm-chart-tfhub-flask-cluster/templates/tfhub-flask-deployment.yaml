@@ -54,7 +54,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ .Values.TFHubFlaskNotePort.Name }}
+  name: {{ .Values.TFHubFlaskNodePort.Name }}
   labels:
     heritage: {{ .Release.Service | quote }}
     release: {{ .Release.Name | quote }}
@@ -62,9 +62,9 @@ metadata:
     component: "{{ .Release.Name }}-{{ .Values.TFHubFlask.Component }}"
 spec:
   ports:
-    - port: {{ .Values.TFHubFlaskNotePort.ServicePort }}
-      targetPort: {{ .Values.TFHubFlaskNotePort.ContainerPort }}
-      nodePort: {{ .Values.TFHubFlaskNotePort.NodePort }}
+    - port: {{ .Values.TFHubFlaskNodePort.ServicePort }}
+      targetPort: {{ .Values.TFHubFlaskNodePort.ContainerPort }}
+      nodePort: {{ .Values.TFHubFlaskNodePort.NodePort }}
   selector:
     component: "{{ .Release.Name }}-{{ .Values.TFHubFlask.Component }}"
   type: NodePort

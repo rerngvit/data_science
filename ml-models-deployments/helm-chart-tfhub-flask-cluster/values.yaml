@@ -15,7 +15,7 @@ TFHubFlask:
   ServicePort: 9091
   ServiceType: ClusterIP
 
-TFHubFlaskNotePort:
+TFHubFlaskNodePort:
   Name: tfhub-flask-np-service
   ContainerPort: 9090 
   ServicePort: 9092  
