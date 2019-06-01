@@ -7,10 +7,12 @@ TFHubFlask:
   Name: tfhub-flask
   Image: "rerng007/ml-models"
   ImageTag: "tfhub"
-  Replicas: 3
+  Replicas: 2
   Component: "tfhub-flask-cluster"
-  Cpu: "200m"
-  Memory: "4000Mi"
+  Cpu: "250m"
+  Memory: "3000Mi"
+  CpuLimit: "500m"
+  MemoryLimit: "8000Mi"
   ContainerPort: 9090 
   ServicePort: 9091
   ServiceType: ClusterIP
@@ -26,9 +28,4 @@ TFHubFlaskNodePort:
   ServicePort: 9092  
   NodePort: 30090
   Component: "tfhub-flask-cluster"
-
-
-
-
-
 

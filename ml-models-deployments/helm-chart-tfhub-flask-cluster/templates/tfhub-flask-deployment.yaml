@@ -33,6 +33,9 @@ spec:
             requests:
               cpu: "{{ .Values.TFHubFlask.Cpu }}"
               memory: "{{ .Values.TFHubFlask.Memory }}"
+            limits:
+              cpu: "{{ .Values.TFHubFlask.CpuLimit }} "
+              memory: "{{ .Values.TFHubFlask.MemoryLimit }}"
 ---
 apiVersion: v1
 kind: Service
