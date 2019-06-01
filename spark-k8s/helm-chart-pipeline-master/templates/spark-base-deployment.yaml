@@ -24,17 +24,17 @@ spec:
     spec:
       serviceAccountName: spark
       volumes:
-      - name: test
+      - name:  {{ .Values.SharedVolume.Name }}
         hostPath:
           # directory location on host
-          path: /home/docker
+          path: {{ .Values.SharedVolume.HostPath }}
           type: Directory
       containers:
         - name: {{ template "base-fullname" . }}
           image: "{{ .Values.Base.Image }}:{{ .Values.Base.ImageTag }}"
           volumeMounts:
-          - name: test
-            mountPath: /mount-minikube
+          - name: {{ .Values.SharedVolume.Name }}
+            mountPath: {{ .Values.SharedVolume.MountPoint }}
           imagePullPolicy: Always
           command: ["/wait-for-step.sh", "/bin/bash"]
           ports:
