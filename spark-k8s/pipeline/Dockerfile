@@ -28,8 +28,12 @@ CMD ["airflow webserver -p 8080 &", "airflow scheduler &"]
 # General data processing
 RUN pip3 install pandas numpy
 
-# Large scale data processing
+## Large scale data processing
+
+# Spark and Dask
 RUN pip3 install pyspark findspark
+RUN pip3 install h5py Pillow matplotlib scipy toolz snakeviz graphviz 
+RUN pip3 install dask distributed 
 
 # Machine learning
 RUN pip3 install sklearn tensorflow imblearn keras GPy tpot fancyimpute tensorflow-hub
