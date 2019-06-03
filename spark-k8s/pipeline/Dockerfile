@@ -26,7 +26,10 @@ RUN airflow initdb
 CMD ["airflow webserver -p 8080 &", "airflow scheduler &"]
 
 # General data processing
-RUN pip3 install pandas numpy 
+RUN pip3 install pandas numpy
+
+# Large scale data processing
+RUN pip3 install pyspark findspark
 
 # Machine learning
 RUN pip3 install sklearn tensorflow imblearn keras GPy tpot fancyimpute tensorflow-hub
