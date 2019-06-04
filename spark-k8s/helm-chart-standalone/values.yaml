@@ -39,7 +39,7 @@ Worker:
   Replicas: 10
   Component: "spark-worker"
   Cpu: "250m"
-  CpuLimit: "1000m"
+  CpuLimit: "500m"
   Memory: "5000Mi"
   MemoryLimit: "6000Mi"
   ServicePort: 8081
@@ -63,6 +63,8 @@ Base:
   CpuLimit: "1000m"
   Memory: "3000Mi"
   MemoryLimit: "5000Mi"
+  Jupyter_NodePort: 30088
+  Jupyter_ContainerPort: 8888
   SparkAppUI_NodePort: 30040
   SparkAppUI_ContainerPort: 4040
   Airflow_NodePort: 30080

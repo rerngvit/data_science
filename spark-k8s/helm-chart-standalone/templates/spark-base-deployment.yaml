@@ -107,3 +107,22 @@ spec:
   selector:
     component: "{{ .Release.Name }}-{{ .Values.Base.Component }}"
   type: NodePort
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ template "base-fullname" . }}-jupyter
+  labels:
+    heritage: {{ .Release.Service | quote }}
+    release: {{ .Release.Name | quote }}
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+    component: "{{ .Release.Name }}-{{ .Values.Base.Component }}"
+spec:
+  ports:
+    - port: {{ .Values.Base.Jupyter_ContainerPort }}
+      targetPort:  {{ .Values.Base.Jupyter_ContainerPort }}
+      nodePort: {{ .Values.Base.Jupyter_NodePort }}
+
+  selector:
+    component: "{{ .Release.Name }}-{{ .Values.Base.Component }}"
+  type: NodePort
