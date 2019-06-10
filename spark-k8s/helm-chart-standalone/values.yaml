@@ -36,7 +36,7 @@ Worker:
   Name: worker
   Image: "rerng007/spark-standalone-k8s"
   ImageTag: "spark-worker"
-  Replicas: 10
+  Replicas: 12
   Component: "spark-worker"
   Cpu: "250m"
   CpuLimit: "500m"
@@ -49,8 +49,8 @@ Worker:
   # Set how much total memory workers have to give executors
   ExecutorMemory: "4g"
   Autoscaling:
-    Enabled: false
-  ReplicasMax: 10
+    Enabled: True
+  ReplicasMax: 12
   CpuTargetPercentage: 50
 
 Base:

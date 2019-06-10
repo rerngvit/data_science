@@ -7,18 +7,18 @@ TFHubFlask:
   Name: tfhub-flask
   Image: "rerng007/ml-models"
   ImageTag: "tfhub"
-  Replicas: 2
+  Replicas: 4
   Component: "tfhub-flask-cluster"
   Cpu: "250m"
   Memory: "3000Mi"
   CpuLimit: "500m"
-  MemoryLimit: "8000Mi"
+  MemoryLimit: "4000Mi"
   ContainerPort: 9090 
   ServicePort: 9091
   ServiceType: ClusterIP
   Autoscaling:
     Enabled: True
-  ReplicasMax: 10
+  ReplicasMax: 8
   CpuTargetPercentage: 50
 
 
