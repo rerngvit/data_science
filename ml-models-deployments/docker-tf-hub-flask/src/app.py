@@ -35,7 +35,7 @@ def sentence_encoder():
         data["input_text"] = input_txt
         data["preprocessed_text"] = preprocessed_txt
         with graph.as_default():
-            sentence_vector = session.run(encoding_ops, feed_dict={messages_plh: [input_txt]})[0]
+            sentence_vector = session.run(encoding_ops, feed_dict={messages_plh: [preprocessed_txt]})[0]
             array_float_str = "{%s}" % ",".join(["{:f}".format(x) for x in list(sentence_vector)])
         
         data["encoded_vector"] = array_float_str
