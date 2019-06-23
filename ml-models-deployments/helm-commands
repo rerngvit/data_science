@@ -1,0 +1,12 @@
+
+# ML TFHub Flask cluster
+helm install --name ml ml-models-deployments\helm-chart-tfhub-flask-cluster
+helm del --purge ml
+
+# Spark cluster
+helm install --name spark-standalone spark-k8s\helm-chart-standalone
+helm del --purge spark-standalone
+
+# Metrics - server
+helm install --name metrics stable/metrics-server
+helm delete --purge metrics
