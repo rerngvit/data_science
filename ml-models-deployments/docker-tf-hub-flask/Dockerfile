@@ -30,6 +30,5 @@ RUN pip3 install flask flask_restful gunicorn
 
 COPY src /src
 COPY tf_hub_cache /tf_hub_cache
-WORKDIR /src
 
-CMD ["gunicorn -b 0.0.0.0:$PORT", "app:app"]
+CMD cd /src && gunicorn  -b 0.0.0.0:$PORT app:app
