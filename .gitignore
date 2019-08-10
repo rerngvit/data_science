@@ -1,5 +1,5 @@
 */.ipynb_checkpoints/*.ipynb
-.idea/*
+.idea
 .vscode/*
 dnn/*/.ipynb_checkpoints/*
 dnn/*/trained_models/*
@@ -7,3 +7,6 @@ dnn/*/__pycache__/*
 dnn/*/dataset/*
 dnn/*/Templates_from_ds_toolbox/*
 spark-k8s/.vscode/*
+*.pyc
+*.pb
+tf_hub_cache
