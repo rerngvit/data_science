@@ -4,9 +4,6 @@ import tensorflow as tf
 import tensorflow_hub as hub
 from text_preprocessor import TextPreprocessor
 
-# initialize our Flask application and the model
-app = flask.Flask(__name__)
-
 def init_sentence_encoder():
     global session, graph, text_preprocessor, encoding_ops, messages_plh
     graph = tf.Graph()
@@ -24,6 +21,11 @@ def init_sentence_encoder():
         encoding_ops = embed(messages_plh)
     print(" Model Sentence Encoder is loaded")
 
+# initialize our Flask application and the model
+app = flask.Flask(__name__)
+print(" Loading model and start the server...")
+init_sentence_encoder()
+	
 @app.route("/sentence_encoder", methods=["POST"])
 def sentence_encoder():
     data = {"success": False}
@@ -45,6 +47,4 @@ def sentence_encoder():
     return flask.jsonify(data)
 
 if __name__ == "__main__":
-	print(" Loading model and start the server...")
-	init_sentence_encoder()
 	app.run(host='0.0.0.0', port=9090)
