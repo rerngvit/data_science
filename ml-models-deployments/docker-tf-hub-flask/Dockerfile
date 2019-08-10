@@ -25,10 +25,11 @@ RUN pip3 install pandas numpy
 RUN pip3 install https://github.com/rerngvit/tensorflow-prebuilt-binaries/blob/master/Linux/1.12.2/py36/tensorflow-1.12.2-cp36-cp36m-linux_x86_64.whl?raw=true
 RUN pip3 install tensorflow-hub
 
-# Flask
-RUN pip3 install flask flask_restful
+# Flask and Gunicorn (WSGI server)
+RUN pip3 install flask flask_restful gunicorn
 
 COPY src /src
 COPY tf_hub_cache /tf_hub_cache
+WORKDIR /src
 
-CMD ["python3", "src/app.py"]
+CMD ["gunicorn -b 0.0.0.0:$PORT", "app:app"]
