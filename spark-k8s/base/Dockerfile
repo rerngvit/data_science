@@ -47,7 +47,7 @@ ARG SPARK_BINARY_FILE_NAME=spark-${SPARK_VERSION}-bin-hadoop${HADOOP_VERSION}
 
 RUN   chmod +x *.sh \
       && wget $SPARK_BINARY_URL \
-      && tar -xvzf $SPARK_BINARY_FILE_NAME \
+      && tar -xvzf $SPARK_BINARY_FILE_NAME.tgz \
       && mv ${SPARK_BINARY_FILE_NAME} spark \
       && rm ${SPARK_BINARY_FILE_NAME}.tgz \
       && cd /
