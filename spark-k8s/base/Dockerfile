@@ -3,7 +3,6 @@ FROM ubuntu:18.04
 ENV PORT 8888 8080
 EXPOSE $PORT
 
-
 ENV ENABLE_INIT_DAEMON true
 ENV INIT_DAEMON_BASE_URI http://identifier/init-daemon
 ENV INIT_DAEMON_STEP spark_master_init
@@ -41,12 +40,14 @@ RUN apt-get install -y screen
 # Postgresql client
 RUN apt-get install -y postgresql-client-10
 
-ARG SPARK_BINARY_URL=http://apache.mirror.iphh.net/spark/spark-${SPARK_VERSION}/spark-${SPARK_VERSION}-bin-hadoop${HADOOP_VERSION}.tgz
+
+# https://archive.apache.org/dist/spark/spark-2.4.3/spark-2.4.3-bin-hadoop2.7.tgz
+ARG SPARK_BINARY_URL=https://archive.apache.org/dist/spark/spark-${SPARK_VERSION}/spark-${SPARK_VERSION}-bin-hadoop${HADOOP_VERSION}.tgz
 ARG SPARK_BINARY_FILE_NAME=spark-${SPARK_VERSION}-bin-hadoop${HADOOP_VERSION}
 
 RUN   chmod +x *.sh \
-      && wget ${SPARK_BINARY_URL} \
-      && tar -xvzf ${SPARK_BINARY_FILE_NAME} \
+      && wget $SPARK_BINARY_URL \
+      && tar -xvzf $SPARK_BINARY_FILE_NAME \
       && mv ${SPARK_BINARY_FILE_NAME} spark \
       && rm ${SPARK_BINARY_FILE_NAME}.tgz \
       && cd /
