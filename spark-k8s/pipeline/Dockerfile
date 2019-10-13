@@ -1,6 +1,6 @@
 # Credit: adapt from https://github.com/big-data-europe/docker-spark/blob/master/master/Dockerfile
 
-FROM rerng007/spark-standalone-k8s:spark-base
+FROM rerng007/spark-native-k8s:spark-base
 
 RUN apt-get update 
 
@@ -23,7 +23,7 @@ RUN pip3 install luigi
 ENV SLUGIFY_USES_TEXT_UNIDECODE=yes
 RUN pip3 install apache-airflow
 RUN airflow initdb
-CMD ["airflow webserver -p 8080 &", "airflow scheduler &"]
+
 
 # General data processing
 RUN pip3 install pandas numpy
