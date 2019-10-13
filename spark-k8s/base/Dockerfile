@@ -41,11 +41,14 @@ RUN apt-get install -y screen
 # Postgresql client
 RUN apt-get install -y postgresql-client-10
 
+ARG SPARK_BINARY_URL=http://apache.mirror.iphh.net/spark/spark-${SPARK_VERSION}/spark-${SPARK_VERSION}-bin-hadoop${HADOOP_VERSION}.tgz
+ARG SPARK_BINARY_FILE_NAME=spark-${SPARK_VERSION}-bin-hadoop${HADOOP_VERSION}
+
 RUN   chmod +x *.sh \
-      && wget http://apache.mirror.iphh.net/spark/spark-${SPARK_VERSION}/spark-${SPARK_VERSION}-bin-hadoop${HADOOP_VERSION}.tgz \
-      && tar -xvzf spark-${SPARK_VERSION}-bin-hadoop${HADOOP_VERSION}.tgz \
-      && mv spark-${SPARK_VERSION}-bin-hadoop${HADOOP_VERSION} spark \
-      && rm spark-${SPARK_VERSION}-bin-hadoop${HADOOP_VERSION}.tgz \
+      && wget ${SPARK_BINARY_URL} \
+      && tar -xvzf ${SPARK_BINARY_FILE_NAME} \
+      && mv ${SPARK_BINARY_FILE_NAME} spark \
+      && rm ${SPARK_BINARY_FILE_NAME}.tgz \
       && cd /
 
 ENV PYTHONHASHSEED 1
