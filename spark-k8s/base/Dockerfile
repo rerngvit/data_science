@@ -28,6 +28,9 @@ RUN apt-get install -y wget dnsutils iputils-ping
 # Vi editor
 RUN apt-get install -y vim 
 
+# Dealing with snappy error (https://github.com/big-data-europe/docker-spark/commit/e96a216c06165a11231de76afa225fd0c54da01e)
+RUN ln -s /lib64/ld-linux-x86-64.so.2 /lib/ld-linux-x86-64.so.2 
+
 # Version control with git
 RUN apt-get install -y git-core 
 
