@@ -13,7 +13,7 @@ Spark:
 
 Base:
   Name: base
-  Image: "rerng007/spark-standalone-k8s"
+  Image: "rerng007/spark-native-k8s"
   ImageTag: "pipeline"
   Replicas: 1
   Component: "spark-base"
