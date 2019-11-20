@@ -8,13 +8,6 @@ ENV SPARK_WORKER_LOG /spark/logs
 
 EXPOSE 8081
 
-# Basic Ubuntu Dependencies  
-RUN apt-get install -y curl python3 python3-pip python-dev build-essential git-core zip \
-                 python3-dev python3-setuptools 
-
-# Network utilities tool
-RUN apt-get install -y iputils-ping
-
 # General data processing
 RUN pip3 install pandas numpy 
 
