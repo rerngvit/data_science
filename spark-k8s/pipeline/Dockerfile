@@ -1,6 +1,6 @@
 # Credit: adapt from https://github.com/big-data-europe/docker-spark/blob/master/master/Dockerfile
 
-FROM rerng007/spark-native-k8s:spark-base
+FROM rerng007/spark-native-k8s:base
 
 RUN apt-get update 
 

@@ -1,6 +1,6 @@
 # Credit: adapt from https://github.com/big-data-europe/docker-spark/blob/master/worker/Dockerfile
 
-FROM rerng007/spark-standalone-k8s:spark-base
+FROM rerng007/spark-standalone-k8s:base
 
 COPY worker.sh /
 
