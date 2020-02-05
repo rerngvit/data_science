@@ -1,4 +1,5 @@
-FROM ubuntu:18.04
+#FROM ubuntu:18.04
+FROM puckel/docker-airflow
 
 ENV PORT 8888 8080
 EXPOSE $PORT
