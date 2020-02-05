@@ -15,6 +15,8 @@ COPY wait-for-step.sh /
 COPY execute-step.sh /
 COPY finish-step.sh /
 
+USER root
+
 RUN apt-get update
 
 # Java 
